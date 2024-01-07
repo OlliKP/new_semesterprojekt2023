@@ -32,7 +32,6 @@ export class LoginPage implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/introduction'])
         }, 1000);
-        console.log(response);
       })
       .catch((err) => {
         this.isLoading = false;

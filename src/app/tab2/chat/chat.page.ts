@@ -27,12 +27,12 @@ export class ChatPage implements OnInit {
     this.fetchChat();
   }
 
-  // ngOnDestroy() {
-  //   // Unsubscribe from the chat subscription when the component is destroyed
-  //   if (this.chatSubscription) {
-  //     this.chatSubscription.unsubscribe();
-  //   }
-  // }
+  ngOnDestroy() {
+    // Unsubscribe from the chat subscription when the component is destroyed
+    if (this.chatSubscription) {
+      this.chatSubscription.unsubscribe();
+    }
+  }
 
   sendMessage() {
     if (this.message === '') {
@@ -81,34 +81,33 @@ export class ChatPage implements OnInit {
     }
   }
 
-  fetchChat(){
+  fetchChat() {
     this.firebaseService.readChat(this.samtaleId).subscribe((res) => {
-      console.log(res.payload.data())
+      console.log(res.payload.data());
       const data = JSON.parse(JSON.stringify(res.payload.data()));
-      this.chat = data
-      const eventId = data.Opslag_ID
-      console.log(eventId)
+      this.chat = data;
+      const eventId = data.Opslag_ID;
+      console.log(eventId);
       this.firebaseService.readEvent(eventId).subscribe((eventRes) => {
-        console.log(eventRes.payload.data())
-        this.event = JSON.parse(JSON.stringify(eventRes.payload.data()))
-      })
-    })
+        console.log(eventRes.payload.data());
+        this.event = JSON.parse(JSON.stringify(eventRes.payload.data()));
+      });
+    });
   }
 
   getOtherChatPersonName() {
-    if ( this.event.profilId !== localStorage.getItem('token')){
-      return this.event.displayName
+    if (this.event.profilId !== localStorage.getItem('token')) {
+      return this.event.displayName;
     } else {
-      return this.chat.displayName
+      return this.chat.displayName;
     }
   }
 
   getOtherChatPersonPhotoURL() {
-    if ( this.event.profilId !== localStorage.getItem('token')){
-      return this.event.photoURL
+    if (this.event.profilId !== localStorage.getItem('token')) {
+      return this.event.photoURL;
     } else {
-      return this.chat.photoURL
+      return this.chat.photoURL;
     }
   }
-
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { format, parseISO } from 'date-fns';
 import { CalendarMode } from 'ionic2-calendar';
@@ -10,15 +10,9 @@ import { Auth } from '@angular/fire/auth';
   templateUrl: './add-event.component.html',
   styleUrls: ['./add-event.component.scss'],
 })
-export class AddEventComponent implements OnInit {
-  
-  
+export class AddEventComponent {
   constructor(private firebaseService: FirebaseService, private auth: Auth) {}
-  
-  ngOnInit() {
-    console.log(new Date().toISOString)
-  }
-  
+
   calendar = {
     mode: 'month' as CalendarMode,
     currentDate: new Date().toISOString().split('T')[0],
@@ -36,7 +30,7 @@ export class AddEventComponent implements OnInit {
     minPersons: null,
     maxPersons: null,
     displayName: this.auth.currentUser?.displayName,
-    photoURL: this.auth.currentUser?.photoURL
+    photoURL: this.auth.currentUser?.photoURL,
   };
 
   @ViewChild(IonModal) modal: IonModal;
@@ -44,14 +38,12 @@ export class AddEventComponent implements OnInit {
   showCalender = false;
   formattedDate: string;
 
-
-
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
 
   save() {
-    this.event.profilId = this.auth.currentUser.uid
+    this.event.profilId = this.auth.currentUser.uid;
     this.firebaseService.createEvent(this.event).then((response) => {
       console.log(response);
     });

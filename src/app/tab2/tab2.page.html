@@ -21,11 +21,7 @@
   <div *ngFor="let chat of chats" class="acc-group">
     <div class="list-item" [routerLink]="['chat/' + chat.samtalerId]">
       <div class="list-item-content">
-        <img
-          class="event-img"
-          src="{{chat.photoURL}}"
-          alt="Profilbillede"
-        />
+        <img class="event-img" src="{{chat.photoURL}}" alt="Profilbillede" />
         <div class="text-item-div">
           <h2 class="titel-item">{{chat.title}}</h2>
           <h3 class="navn-item">{{chat.displayName}}</h3>

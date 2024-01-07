@@ -6,8 +6,6 @@ import {
 } from '@angular/fire/auth';
 import { Router, RouterConfigOptions } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-opret',
   templateUrl: './opret.page.html',
@@ -32,21 +30,28 @@ export class OpretPage implements OnInit {
       this.auth,
       this.user.email,
       this.user.password
-    ).then((response) => {
-      console.log(this.auth.currentUser);
-      updateProfile(this.auth.currentUser, {
-        displayName: this.user.name,
-      }).then((updateResponse) => {
-        setTimeout(() => {
-          this.router.navigate(['/introduction'])
-        }, 1000);
+    )
+      .then((response) => {
+        console.log(this.auth.currentUser);
+        updateProfile(this.auth.currentUser, {
+          displayName: this.user.name,
+        }).then((updateResponse) => {
+          setTimeout(() => {
+            this.router.navigate(['/introduction']);
+          }, 1000);
+        });
+      })
+      .catch((err) => {
+        alert('Der skete en fejl! Prøv igen');
+        this.isLoading = false;
       });
-    })
-    .catch((err) => {
-      alert('Der skete en fejl! Prøv igen')
-      this.isLoading = false;
-    });
   }
 
-  
+  // Status
+  isFormValid: boolean = false;
+
+  // Check if all inputs are filled
+  checkFormValidity() {
+    this.isFormValid = !!this.user.name && !!this.user.email && !!this.user.password;
+  }
 }
