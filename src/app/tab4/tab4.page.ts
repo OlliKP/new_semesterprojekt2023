@@ -20,7 +20,8 @@ export class Tab4Page implements OnInit {
   ngOnInit() {
   }
 
-  signOut() {
+// Log ud funktion
+  logOut() {
     signOut(this.auth).then(() => {
       this.router.navigate(['/login'])
       localStorage.clear();

@@ -32,7 +32,6 @@ export class FirebaseService {
     this.firestore.doc('Opslag' + '/' + record_id).delete();
   }
 
-
   // Google login
   googleSignIn() {
     return this.fireauth.signInWithPopup(new GoogleAuthProvider()).then(

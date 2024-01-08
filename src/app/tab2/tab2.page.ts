@@ -12,21 +12,23 @@ export class Tab2Page implements OnInit {
   constructor(private firebaseService: FirebaseService) {}
 
   ngOnInit() {
+    // Køres af sig selv lige efter constructor
     this.fetchChatsStartedByMe();
     this.fetchChatsStartedWithMe();
   }
 
+  // Henter chats der er startet med "jeg" - altså af en anden, men med mig
   fetchChatsStartedWithMe() {
     this.firebaseService.readChatsStartedWithMe().subscribe((res) => {
       res.forEach((docs) => {
         docs.forEach((doc) => {
-          console.log(doc)
           this.chats.push(doc);
         });
       });
     });
   }
 
+// Henter chats der er startet af "jeg"
   fetchChatsStartedByMe() {
     this.firebaseService.readChatsStartedByMe().subscribe((res) => {
       res.forEach((doc) => {
@@ -35,7 +37,7 @@ export class Tab2Page implements OnInit {
     });
   }
 
-  // Funktion til at refreshe
+  // Funktion til at refreshe indholdet
   handleRefresh(event) {
     setTimeout(() => {
       this.chats = [];

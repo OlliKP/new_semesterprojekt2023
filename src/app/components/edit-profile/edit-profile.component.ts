@@ -31,6 +31,8 @@ export class EditProfileComponent  implements OnInit {
     this.modal.dismiss('', 'confirm');
   }
 
+  // Asynkron funktion - await, venter på at create() er kørt færdig
+  // Laver en alert før den skal præsenteres
   async deleteAlert() {
     const alert = await this.alertController.create({
       header: 'Vil du slette din profil?',

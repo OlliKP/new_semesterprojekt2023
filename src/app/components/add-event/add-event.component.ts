@@ -42,17 +42,20 @@ export class AddEventComponent {
     this.modal.dismiss(null, 'cancel');
   }
 
+  // Gemme det ny oprettet event, ved brug af createEvent()
   save() {
     this.event.profilId = this.auth.currentUser.uid;
-    this.firebaseService.createEvent(this.event).then((response) => {
-      console.log(response);
-    });
+    this.firebaseService.createEvent(this.event).then((response) => {});
     this.modal.dismiss('', 'confirm');
   }
 
+  // Metoden 'datePicked' bruges til at håndtere valg af dato fra en kalender.
+  // Den modtager en parameter ('value')
+  // Først opdateres datoegenskaben for begivenheden ('this.event.date') ved at trække tidsdelen fra værdien.
+  // Derefter formateres den valgte dato og gemmes i 'formattedDate' ved hjælp af 'format' fra date-fns-biblioteket.
+  // Tilsidst skjules kalenderkomponenten ved at sætte 'showCalendar' til 'false'.
   datePicked(value: any) {
     this.event.date = value.split('T')[0];
-    console.log(value);
     this.formattedDate = format(parseISO(value), 'MMM d, yyyy');
     this.showCalender = false;
   }

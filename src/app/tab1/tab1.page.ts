@@ -20,10 +20,12 @@ export class Tab1Page {
   ) {}
 
   ngOnInit() {
+    // Køres af sig selv lige efter constructor
     this.fetchEvents();
     this.fetchFavoriteEvents();
   }
 
+  // Funktion til at lave en favorit
   makeFavorite(event) {
     if (
       this.favoriteEvents.find(
@@ -55,6 +57,7 @@ export class Tab1Page {
     this.events[eventIndex] = eventInEvents;
   }
 
+  // Funktion til at slette en favorit
   undoFavorite(event) {
     this.firebaseService.deleteFavorite(event.favoritterId);
     this.favoriteEvents = this.favoriteEvents.filter((favoriteEvent) => {
@@ -88,11 +91,13 @@ export class Tab1Page {
     }
   }
 
+  // Funktion til hvad der skal vises når man klikker på favorit
   toggleFavorites() {
     this.showFavorites = !this.showFavorites;
-    this.events = !this.showFavorites ? this.allEvents : this.favoriteEvents;
+    this.events = this.showFavorites ? this.favoriteEvents : this.allEvents;
   }
 
+  // Fetcher alle ens favorit events
   fetchFavoriteEvents() {
     this.firebaseService.fetchFavoriteEvents().subscribe((data) => {
       this.favoriteEvents = data;
@@ -113,6 +118,7 @@ export class Tab1Page {
     });
   }
 
+  // Fetcher events og sætter events til at være lige alle events
   fetchEvents() {
     this.firebaseService.readEvents().subscribe((data) => {
       this.events = data.map((e) => {
@@ -135,6 +141,7 @@ export class Tab1Page {
     });
   }
 
+  // Hvordan 'antal personer' vises
   displayNumberOfPerson(event) {
     if (event.minPersons === event.maxPersons) {
       return event.minPersons;
@@ -142,18 +149,20 @@ export class Tab1Page {
     return event.minPersons + ' - ' + event.maxPersons;
   }
 
+  // Funktionen der kører, når man starter en chat
   startChat(opslagId) {
     const record = {
       Opslag_ID: opslagId,
       Profil_ID: localStorage.getItem('token'),
       displayName: localStorage.getItem('displayName'),
-      photoURL: localStorage.getItem('photoURL')
+      photoURL: localStorage.getItem('photoURL'),
     };
     this.firebaseService.createChat(record).then((res) => {
       this.router.navigate(['tabs/tab2/chat/' + res.id]);
     });
   }
 
+  // Funktionen der sørger for, hvad der sker når man opdatere siden, ved at trække ned
   handleRefresh(event) {
     setTimeout(() => {
       this.events = [];

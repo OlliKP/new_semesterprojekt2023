@@ -24,24 +24,31 @@ export class OpretPage implements OnInit {
 
   ngOnInit() {}
 
+  // Funktion til oprettelse af en bruger. Aktiverer indlæsningsstatus, opretter en ny bruger med angivet email og adgangskode,
+  // opdaterer brugerprofilen med det angivne navn og navigerer til introduktionssiden efter en kort forsinkelse ved vellykket oprettelse.
   signUp() {
+    // Aktiverer indlæsningsstatus under oprettelsesprocessen.
     this.isLoading = true;
+
+    // Opretter en ny bruger med den angivne email og adgangskode.
     createUserWithEmailAndPassword(
       this.auth,
       this.user.email,
       this.user.password
     )
       .then((response) => {
-        console.log(this.auth.currentUser);
+        // Opdaterer brugerprofilen med det angivne navn.
         updateProfile(this.auth.currentUser, {
           displayName: this.user.name,
         }).then((updateResponse) => {
+          // Navigerer til introduktionssiden efter en kort forsinkelse ved vellykket oprettelse.
           setTimeout(() => {
             this.router.navigate(['/introduction']);
           }, 1000);
         });
       })
       .catch((err) => {
+        // Viser en fejlmeddelelse ved fejl under oprettelse og deaktiverer indlæsningsstatus.
         alert('Der skete en fejl! Prøv igen');
         this.isLoading = false;
       });
@@ -52,6 +59,7 @@ export class OpretPage implements OnInit {
 
   // Check if all inputs are filled
   checkFormValidity() {
-    this.isFormValid = !!this.user.name && !!this.user.email && !!this.user.password;
+    this.isFormValid =
+      !!this.user.name && !!this.user.email && !!this.user.password;
   }
 }
