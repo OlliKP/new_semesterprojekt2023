@@ -25,8 +25,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  // Funktion til login. Aktiverer indlæsningsstatus, forsøger at logge ind med den angivne email og adgangskode,
-  // og håndterer resultatet ved at gemme brugeroplysninger i lokal lagring og navigere til introduktionssiden efter en kort forsinkelse.
   login() {
     // Aktiverer indlæsningsstatus under login-processen.
     this.isLoading = true;
@@ -34,7 +32,7 @@ export class LoginPage implements OnInit {
     // Forsøger at logge ind med den angivne email og adgangskode.
     signInWithEmailAndPassword(this.auth, this.user.email, this.user.password)
       .then((response) => {
-        // Gemmer brugeroplysninger i lokal lagring.
+        // Gemmer brugeroplysninger i lokalstorage.
         localStorage.setItem('displayName', response.user.displayName);
         localStorage.setItem('email', response.user.email);
         localStorage.setItem('token', response.user.uid);

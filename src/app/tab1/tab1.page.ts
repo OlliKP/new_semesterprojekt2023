@@ -27,6 +27,7 @@ export class Tab1Page {
 
   // Funktion til at lave en favorit
   makeFavorite(event) {
+    // Tjekker om eventet allerede er favorittet
     if (
       this.favoriteEvents.find(
         (favoriteEvent) => favoriteEvent.eventId === event.eventId
@@ -45,14 +46,17 @@ export class Tab1Page {
       });
     this.favoriteEvents.push(event);
 
+    // Leder efter index på det event, vi lige har gjort favorit (Hvilken placering i array fx.[0])
     const eventIndex = this.events.findIndex((e) => {
       return e.eventId === event.eventId;
     });
 
+    // Leder efter det event, vi lige har gjort favorit
     const eventInEvents = this.events.find((e) => {
       return e.eventId === event.eventId;
     });
 
+    // Det event giver vi en property 'favoritterId'
     eventInEvents.favoritterId = true;
     this.events[eventIndex] = eventInEvents;
   }
@@ -60,29 +64,36 @@ export class Tab1Page {
   // Funktion til at slette en favorit
   undoFavorite(event) {
     this.firebaseService.deleteFavorite(event.favoritterId);
+    // Filtrere eventet ud af favorit events
     this.favoriteEvents = this.favoriteEvents.filter((favoriteEvent) => {
       return favoriteEvent.eventId !== event.eventId;
     });
 
+    // Leder efter index på det event, vi lige har undo favorit (Hvilken placering i array fx.[0])
     const eventIndex = this.events.findIndex((e) => {
       return e.eventId === event.eventId;
     });
 
+    // Leder efter det event, vi lige har undo favorit
     const eventInEvents = this.events.find((e) => {
       return e.eventId === event.eventId;
     });
 
+    // Det event giver vi en property 'favoritterId' og gør den false
     eventInEvents.favoritterId = false;
     this.events[eventIndex] = eventInEvents;
 
+    // Det samme som ovenover bare i allEvent arrayet
     const eventIndexInAll = this.allEvents.findIndex((e) => {
       return e.eventId === event.eventId;
     });
 
+    // Det samme som ovenover bare i allEvent arrayet
     const eventInEventsInAll = this.allEvents.find((e) => {
       return e.eventId === event.eventId;
     });
 
+    // Det samme som ovenover bare i allEvent arrayet
     eventInEventsInAll.favoritterId = false;
     this.allEvents[eventIndexInAll] = eventInEventsInAll;
 
@@ -103,6 +114,7 @@ export class Tab1Page {
       this.favoriteEvents = data;
 
       data.forEach((favoriteEvent) => {
+        
         let favoriteEventInEventsIndex = this.events.findIndex((event) => {
           return event.eventId === favoriteEvent.eventId;
         });

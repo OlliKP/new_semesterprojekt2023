@@ -39,8 +39,7 @@ export class EditEventComponent  implements OnInit {
   }
 
   // Metoden 'datePicked' bruges til at håndtere valg af dato fra en kalender.
-  // Den modtager en parameter ('value')
-  // Først opdateres datoegenskaben for begivenheden ('this.event.date') ved at trække tidsdelen fra værdien.
+  // Først opdateres dato for begivenheden ('this.event.date') ved at trække tidsdelen fra værdien.
   // Derefter formateres den valgte dato og gemmes i 'formattedDate' ved hjælp af 'format' fra date-fns-biblioteket.
   // Tilsidst skjules kalenderkomponenten ved at sætte 'showCalendar' til 'false'.
   datePicked(value: any) {

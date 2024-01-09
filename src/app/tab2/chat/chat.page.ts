@@ -37,7 +37,6 @@ export class ChatPage implements OnInit {
 
   // Send besked
   sendMessage() {
-    // hvis message er lig med en tom string, så skal den returnerer.
     if (this.message === '') {
       return;
     }
@@ -48,8 +47,6 @@ export class ChatPage implements OnInit {
       time: new Date(),
     };
 
-    // Returnerer et promise, kan vi bruge .then() og den har en callback funktion, som argument.
-    // Herinde sætter vi message til at være en tom string, så når man har klikket på send besked, så cleare den input feltet.
     this.firebaseService.createMessage(record).then((res) => {
       this.message = '';
     });
@@ -91,12 +88,11 @@ export class ChatPage implements OnInit {
 
   // Funktion til at hente chatdata
   fetchChat() {
-    // Abonnerer på resultatet af chat fra Firestore baseret på samtale-ID.
     this.firebaseService.readChat(this.samtaleId).subscribe((res) => {
-      // Opdaterer den lokale chatvariabel med de hentede data fra Firestore.
+      // Opdaterer chatvariabel med de hentede data fra Firestore
       this.chat = JSON.parse(JSON.stringify(res.payload.data()));
 
-      // Henter event-ID fra den hentede chat og abonnerer på resultatet af event fra Firestore.
+      // Henter event-ID fra den hentede chat og abonnerer på resultatet af event fra Firestore
       const eventId = this.chat.Opslag_ID;
       this.firebaseService.readEvent(eventId).subscribe((eventRes) => {
         // Opdaterer den lokale eventvariabel med de hentede data fra Firestore.

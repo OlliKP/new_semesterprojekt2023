@@ -73,6 +73,7 @@ export class FirebaseService {
               }
               return {};
             })
+            // Sortere de tomme objekter fra (dem der af det userId, som ikke er lig med profilId)
             .filter((data) => {
               return Object.keys(data).length > 0;
             })
@@ -158,7 +159,6 @@ export class FirebaseService {
   }
 
   // Chat
-
   createChat(record) {
     return this.firestore.collection('Samtaler').add(record);
   }
