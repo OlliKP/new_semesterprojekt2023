@@ -97,3 +97,51 @@ ion-button.signUp {
   height: 1.5rem;
   margin-left: .5rem;
 }
+
+ion-footer {
+  display: block;
+}
+
+h3.only-mobile-text{
+  display: none;
+}
+
+.web-box {
+  display: none;
+}
+
+@media only screen and (min-width: 500px) {
+ion-footer {
+  display: none;
+}
+
+.web-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100dvh;
+  background-color: var(--ion-color-secondary);
+
+  img {
+    width: 20vw;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+  h3.only-mobile-text{
+    font-family: RalewayRegular;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: transparent;
+    padding-inline: 10vw;
+    font-size: 2.2vw;
+  }
+}
